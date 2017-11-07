@@ -38,10 +38,10 @@ class ViewController: UIViewController {
         let topCons = colorView.topAnchor.constraint(equalTo: self.view.topAnchor)
         let bottomCons = colorView.bottomAnchor.constraint(equalTo: self.view.bottomAnchor, constant: -50)
         
-        let btnTopCons = changeConsBtn.topAnchor.constraint(equalTo: self.view.bottomAnchor, constant: -50).isActive = true
-        let btnLeadingCons = changeConsBtn.leadingAnchor.constraint(equalTo: self.view.leadingAnchor).isActive = true
-        let btnTrailingCons = changeConsBtn.trailingAnchor.constraint(equalTo: self.view.trailingAnchor).isActive = true
-        let btnBottomCons = changeConsBtn.bottomAnchor.constraint(equalTo: self.view.bottomAnchor).isActive = true
+        changeConsBtn.topAnchor.constraint(equalTo: self.view.bottomAnchor, constant: -50).isActive = true
+        changeConsBtn.leadingAnchor.constraint(equalTo: self.view.leadingAnchor).isActive = true
+        changeConsBtn.trailingAnchor.constraint(equalTo: self.view.trailingAnchor).isActive = true
+        changeConsBtn.bottomAnchor.constraint(equalTo: self.view.bottomAnchor).isActive = true
     
         viewConsArray = [leadingCons, trailingCons, topCons, bottomCons]
         NSLayoutConstraint.activate(viewConsArray)
