@@ -12,7 +12,7 @@ class ViewController: UIViewController {
 
     let colorView = UIView()
     let changeConsBtn = UIButton()
-    var viewConsArray:[NSLayoutConstraint] = []
+    var ConsArray:[NSLayoutConstraint] = []
     var newConsArray:[NSLayoutConstraint] = []
     
     var isNewCons:Bool = false
@@ -20,44 +20,47 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        
+        setButton()
+        setView()
+    }
+    
+    func setView(){
         colorView.translatesAutoresizingMaskIntoConstraints = false
-        changeConsBtn.translatesAutoresizingMaskIntoConstraints = false
-        
         colorView.backgroundColor = .orange
-        
-        changeConsBtn.backgroundColor = .darkGray
-        changeConsBtn.setTitle("Change Constraints", for: .normal)
-        changeConsBtn.setTitleColor(.white, for: .normal)
-        changeConsBtn.addTarget(self, action: #selector(changeBtnTapped), for: .touchUpInside)
-        
         self.view.addSubview(colorView)
-        self.view.addSubview(changeConsBtn)
-        
+    
         let leadingCons = colorView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor)
         let trailingCons = colorView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor)
         let topCons = colorView.topAnchor.constraint(equalTo: self.view.topAnchor)
         let bottomCons = colorView.bottomAnchor.constraint(equalTo: self.view.bottomAnchor, constant: -50)
         
+        ConsArray = [leadingCons, trailingCons, topCons, bottomCons]
+        NSLayoutConstraint.activate(ConsArray)
+    }
+    
+    func setButton(){
+        changeConsBtn.translatesAutoresizingMaskIntoConstraints = false
+        changeConsBtn.backgroundColor = .darkGray
+        changeConsBtn.setTitle("Change Constraints", for: .normal)
+        changeConsBtn.setTitleColor(.white, for: .normal)
+        changeConsBtn.addTarget(self, action: #selector(changeBtnTapped), for: .touchUpInside)
+        self.view.addSubview(changeConsBtn)
+        
         changeConsBtn.topAnchor.constraint(equalTo: self.view.bottomAnchor, constant: -50).isActive = true
         changeConsBtn.leadingAnchor.constraint(equalTo: self.view.leadingAnchor).isActive = true
         changeConsBtn.trailingAnchor.constraint(equalTo: self.view.trailingAnchor).isActive = true
         changeConsBtn.bottomAnchor.constraint(equalTo: self.view.bottomAnchor).isActive = true
-    
-        viewConsArray = [leadingCons, trailingCons, topCons, bottomCons]
-        NSLayoutConstraint.activate(viewConsArray)
+        
     }
     
     @objc func changeBtnTapped(){
         if isNewCons {
             NSLayoutConstraint.deactivate(newConsArray)
-            NSLayoutConstraint.activate(viewConsArray)
+            NSLayoutConstraint.activate(ConsArray)
             isNewCons = false
-        }else if isNewCons == false && newConsArray.count != 0{
-            NSLayoutConstraint.deactivate(viewConsArray)
-            NSLayoutConstraint.activate(newConsArray)
-            isNewCons = true
         }else {
-            NSLayoutConstraint.deactivate(viewConsArray)
+            NSLayoutConstraint.deactivate(ConsArray)
             
             let heightCons = colorView.heightAnchor.constraint(equalToConstant: 200.0)
             let widthCons = colorView.widthAnchor.constraint(equalToConstant: 200.0)
@@ -66,8 +69,6 @@ class ViewController: UIViewController {
             
             newConsArray = [heightCons, widthCons, horizontalCons, verticalCons]
             NSLayoutConstraint.activate(newConsArray)
-            
-            print("First Changeed")
             isNewCons = true
         }
     }
